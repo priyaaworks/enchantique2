@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart - Enchantique</title>
+  <link rel="stylesheet" href="cart.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root{
+     --main-color:#cab273;
+    --main-light-color:#fffbf0;
+    --secondary-color:#551756; 
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff5f0;
+  }
+  
+  .cart-header {
+    background-color: #c08440;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    position: relative;
+  }
+  
+  .back-home {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: rgb(79, 78, 11);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .cart-items {
+    padding: 30px;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  
+  .cart-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 20px;
+  }
+  
+  .item-details h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .item-details p {
+    margin: 5px 0;
+    color: #777;
+  }
+  
+  .remove-btn {
+    margin-top: 10px;
+    padding: 8px 12px;
+    color: var(--main-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .cart-summary {
+    text-align: center;
+    margin: 30px 0;
+  }
+  
+  .checkout-btn {
+    padding: 15px 25px;
+    background-color: #c08440;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  /* Navbar container */
+.navbar {
+  background-color: #f5f5f5;
+  padding: 12px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+/* List styling */
+.nav-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Inline list items */
+.nav-links li {
+  display: inline;
+  margin: 0 15px;
+}
+
+/* Link styling */
+.nav-links a {
+  text-decoration: none;
+  color: #222;
+  font-weight: 500;
+  font-family: 'Segoe UI', sans-serif;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  position: relative;
+}
+
+/* Hover effect */
+.nav-links a:hover {
+  color: #b38958; /* Goldish tone */
+}
+
+/* Optional underline on hover */
+.nav-links a::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #b38958;
+  transition: width 0.3s;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+ </style>
+</head>
+<body>
+
+
+  <header class="cart-header">
+    <!-- Inside your navbar or anywhere -->
+    <nav class="navbar">
+        <ul class="nav-links"></ul>
+      
+<a href="index.html">Home</a>
+<a href="product.html">Products</a>
+<a href="login.html">Login</a>
+<a href="signup.html">Signup</a>
+</ul>
+</nav>
+    <h1>🛍️ Your Shopping Cart</h1>
+    <a href="index.html" class="back-home">← Continue Shopping</a>
+  </header>
+
+  <section class="cart-items">
+    <div class="cart-item">
+      <img src="cartImages\jewel1.jpg" alt="Product Image" />
+      <div class="item-details">
+        <h3>Gold Necklace</h3>
+        <p>₹15,000</p>
+        <button class="remove-btn">Remove</button>
+      </div>
+    </div>
+
+    <div class="cart-item">
+      <img src="cartImages\jewel2.jpg" alt="Product Image" />
+      <div class="item-details">
+        <h3>Diamond Ring</h3>
+        <p>₹25,000</p>
+        <button class="remove-btn">Remove</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="cart-summary">
+    <h2 id="total-price">Total: ₹0</h2>
+    <button class="checkout-btn">Proceed to Checkout</button>
+  </section>
+
+  <script>
+
+function loadCart() {
+      const cartContainer = document.getElementById("cart-items");
+      const totalPriceEl = document.getElementById("total-price");
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let total = 0;
+
+      cartContainer.innerHTML = "";
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = "<p style='margin: 20px;'>Your cart is empty.</p>";
+        totalPriceEl.textContent = "Total: ₹0";
+        return;
+      }
+
+      cart.forEach((item, index) => {
+        total += parseFloat(item.price);
+
+        const cartItem = document.createElement("div");
+        cartItem.className = "cart-item";
+        cartItem.innerHTML = `
+          <img src="${item.img}" alt="Product Image" />
+          <div class="item-details">
+            <h3>${item.title}</h3>
+            <p>₹${item.price}</p>
+            <button class="remove-btn" data-index="${index}">Remove</button>
+          </div>
+        `;
+        cartContainer.appendChild(cartItem);
+      });
+
+      totalPriceEl.textContent = `Total: ₹${total.toLocaleString()}`;
+
+      // Remove button logic
+      document.querySelectorAll(".remove-btn").forEach(btn => {
+        btn.addEventListener("click", function () {
+          const index = this.getAttribute("data-index");
+          cart.splice(index, 1);
+          localStorage.setItem("cart", JSON.stringify(cart));
+          loadCart();
+        });
+      });
+    }
+
+    document.querySelector(".checkout-btn").addEventListener("click", function () {
+      alert("Thank you! Redirecting to checkout page soon.");
+    });
+
+    loadCart();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   /* document.querySelectorAll('.remove-btn').forEach(btn => {
+  btn.addEventListener('click', function () {
+    const item = this.closest('.cart-item');
+    item.remove();
+
+    // You can also update total amount here dynamically if needed
+    alert("Item removed from cart.");
+  });
+});
+
+document.querySelector('.checkout-btn').addEventListener('click', function () {
+  alert("Thank you! Redirecting to checkout page soon.");
+});
+
+
+
+const cartItemsContainer = document.getElementById('cart-item');
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  if (cart.length === 0) {
+    cartItemsContainer.innerHTML = "<p>Your cart is empty!</p>";
+  } else {
+    cart.forEach(item => {
+      const div = document.createElement('div');
+      div.classList.add('cart-items');
+      div.innerHTML = `
+        <img src="${item.img}" alt="${item.title}" width="100">
+        <h3>${item.title}</h3>
+        <p>Price: ${item.price}</p>
+      `;
+      cartItemsContainer.appendChild(div);
+    });
+  }
+//
+ // <button onclick="goToHome()">Go to Home</button>
+//<button onclick="goToProducts()">Go to Products</button>
+//function goToHome() {
+ // window.location.href = "index.html";
+//}//
+
+//function goToProducts() {
+//  window.location.href = "product.html";
+//}
+
+  </script>
+
+</body>
+</html>

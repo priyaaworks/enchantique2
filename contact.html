@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us - Enchantique</title>
+  <link rel="stylesheet" href="contact.css">
+</head>
+<style>
+    body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.contact-container {
+   
+  max-width: 600px;
+  margin: 80px auto;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 40px 20px;
+}
+
+
+
+.contact-container-head{
+    text-align: center;
+    color: #a2784c;
+    margin: 0;
+}
+
+form label {
+  display: block;
+  margin-top: 10px;
+  color: #333;
+}
+
+form input, form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  background-color: #a2784c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #8a633a;
+  cursor: pointer;
+  
+}
+
+.success-message {
+  text-align: center;
+  background-color: #e0f7e9;
+  color: #2e7d32;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-weight: 500;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f6e9e9;
+  color: #555;
+  margin-top: 30px;
+}
+
+
+.back-to-home {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.back-to-home a {
+  text-decoration: none;
+  background-color: #a2784c;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.back-to-home a:hover {
+  background-color: #8a633a;
+}
+
+</style>
+<body>
+    <div class="back-to-home">
+        <a href="index.html">← Back to Home</a>
+      </div>
+      
+
+  <div class="contact-container">
+    <div class="contact-container-head">
+        <h1>Contact Us</h1>
+        <p>We’d love to hear from you! ✨</p>
+    </div>
+   
+
+    <div class="contact-info">
+        <h2>Get in Touch</h2>
+        <p><strong>Address:</strong> 123 Gold Street, Jaipur, India</p>
+        <p><strong>Email:</strong> support@enchantique.com</p>
+        <p><strong>Phone:</strong> +91-9876543210</p>
+        <p><strong>Business Hours:</strong> Mon - Sat (10 AM - 7 PM)</p>
+      </div>
+    <!-- ✅ SUCCESS MESSAGE -->
+    <p id="successMsg" class="success-message" style="display: none;"></p>
+
+    <form id="contactForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+
+      <label for="message">Message:</label>
+      <textarea id="message" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+  <footer>
+    <p>&copy; 2025 Enchantique Jewels. All rights reserved.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
